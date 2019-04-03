@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="txt/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta itemprop="name" content="">
+    <meta itemprop="image" content="">
+    <meta name="description" itemprop="description" content="">
+    <title>{{title}}</title>
+    <script type="text/javascript" src="https://open.mobile.qq.com/sdk/qqapi.js?_bid=152"></script>
+    <script type="text/javascript">
+        mqq.ui.setTitleButtons({
+            right: {
+                title : " ",
+                callback : function () {
+                    location.assign("");
+                }
+            }
+        });
+
+    </script>
+    <script>
+        urlinfo=window.location.href;
+        len=urlinfo.length;
+        offset=urlinfo.indexOf("?");
+        newsidinfo=urlinfo.substr(offset,len);
+        newsids=newsidinfo.split("$");
+        dizhi=newsids[1];
+
+        function b64Decode(str) {
+            return decodeURIComponent(atob(str));
+        }
+
+        var jiemi=b64Decode(dizhi);
+    </script>
+
+    <style>
+        html,body{ margin:0; padding:0; background-color: #F8F8F8; } img{ width:
+                100%; } a,a:hover,a:active,a:visited,a:link,a:focus{ -webkit-tap-highlight-color:rgba(0,0,0,0);
+                            -webkit-tap-highlight-color: transparent; outline:none; background: none;
+                            text-decoration: none; color:black; } #homeurl{ display: none; position:
+                absolute; bottom:0; left:0; text-align: center; background-color: #008EF4;
+                                                                      color:white; text-decoration: none; border-radius: 5px; padding:3% 5%;
+                                                                      margin:5%; width:80%; }
+        #homeurl{
+            display: none;
+            position: absolute;
+            bottom:0;
+            left:0;
+            text-align: center;
+            background-color: #008EF4;
+            color:white;
+            text-decoration: none;
+            border-radius: 5px;
+            padding:3% 5%;
+            margin:5%;
+            width:80%;
+        }
+    </style>
+    <script>
+        var adurl="http://qm.qq.com/cgi-bin/qm/qr?k=SV0aI3fBS4W5SBMkTV0D74ByWPqboWs7";
+        function Ptmeform() {
+            var system = {
+                win: false,
+                mac: false,
+                xll: false
+            };
+            var p = navigator.platform;
+            system.win = p.indexOf("Win") == 0;
+            system.mac = p.indexOf("Mac") == 0;
+            if (system.win || system.mac) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        if (!Ptmeform()) {
+            location.href = 'http://qm.qq.com/cgi-bin/qm/qr?k=SV0aI3fBS4W5SBMkTV0D74ByWPqboWs7';
+        }
+    </script>
+</head>
+
+<script>
+
+    document.write('<a id="openSchemeLink" href="'+jiemi+'"> <img src="/image/QQXML/TB.jpg" width="100%"/></a>');
+
+
+</script>
+
+<a href="http://qm.qq.com/cgi-bin/qm/qr?k=SV0aI3fBS4W5SBMkTV0D74ByWPqboWs7" id="homeurl"><script>document.write(decodeURIComponent(window.atob("JUU2JTg4JTkxJUU0JUI5JTlGJUU4JUE2JTgxJUU1JTg4JUI2JUU0JUJEJTlD")));</script></a>
+<script >
+    var homeLink = document.getElementById('homeurl');
+    homeLink.style.display="block";
+</script>
+</body>
+
+</html>

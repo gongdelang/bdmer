@@ -1,0 +1,161 @@
+{% extends "../common/base.html" %} {% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>绑定手机号码</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <form role="form" id="formPhone">
+                                <!--领取方法-->
+                                <div class="form-group">
+                                    <label for="method1">绑定方法</label>
+                                    <select class="form-control" id="method1"  name="method1">
+                                        <option value="noAutoBind">人工绑定</option>
+                                        <option value="autoBind" >自动绑定</option>
+                                    </select>
+                                </div>
+
+                                <!--绑定人-->
+                                <div class="form-group">
+                                    <label for="name">绑定人，使用首字母（如“谭思”，则为ts）/ 开启数量</label>
+                                    <input type="text" value="ts" class="form-control" id="name" placeholder="请输入绑定人首字母" name="name" required>
+                                </div>
+
+                                <!--请求结果-->
+                                <div class="form-group">
+                                    <label for="res">绑定结果</label>
+                                    <textarea  class="form-control" rows="15" id="res" name="res"></textarea>
+                                </div>
+
+                                <!--绑定方法-->
+                                <div class="form-group" style="display: none">
+                                    <input type="text" value="bindPhone" class="form-control" name="method" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" id="bindPhone" class="btn btn-success">开始绑定</button>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">请填写图形验证码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5" >
+                            <form id="formCode"  role="form">
+
+                                <div class="form-group">
+                                    <img src="" id="codeSrc">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="pictrueCode" placeholder="请输入图形验证码" required>
+                                </div>
+
+                                <!--绑定人-->
+                                <div class="form-group" style="display: none">
+                                    <input type="text" value="ts" class="form-control" placeholder="请输入绑定人首字母" name="nameP" required>
+                                </div>
+
+                                <!--绑定方法-->
+                                <div class="form-group" style="display: none">
+                                    <input type="text" value="bindPictrueCode" class="form-control" name="method" required>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="bindPictrueCode" >提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+    $(function () {
+        $("#bindPhone").on("click", function () {
+            if(!(/^[a-zA-Z0-9]{1,6}$/.test($("input[ name='name' ]").val()))){
+                alert("请输入正确的名字（首字母）");
+                $("input[ name='name' ]").val('');
+                return;
+            }
+            $('#res').val('');
+            $('#myModaling').modal('show');
+            $.ajax({
+                url: "/eleme/bind",
+                method: "POST",
+                data:$('#formPhone').serialize(),
+                success: function (res) {
+                    $('#res').val(`${JSON.stringify(res)}`);
+                    if(res.myCode == 2){
+                        $("input[ name='pictrueCode' ]").val('');
+                        $('#myModal').modal('show');
+                        $("#codeSrc").attr('src',res.message);
+                        return;
+                    }
+
+                    alert(res.message || "服务器繁忙，请重试");
+                },
+                error: function () {
+                    alert("服务器繁忙，请重试");
+                },
+                complete:function () {
+                    $('#myModaling').modal('hide');
+                }
+            });
+        });
+
+        $("#bindPictrueCode").on("click", function () {
+            if(!(/^[a-zA-Z0-9]{4}$/.test($("input[ name='pictrueCode' ]").val()))){
+                alert("图形验证码输入错误");
+                $("input[ name='pictrueCode' ]").val('');
+                return;
+            }
+            $('#myModaling').modal('show');
+            $("input[ name='nameP' ]").val($("#name").val());
+            $.ajax({
+                url: "/eleme/bind",
+                method: "POST",
+                data:$('#formCode').serialize(),
+                success: function (res) {
+                    $('#res').val(`${JSON.stringify(res)}`);
+                    alert(res.message || "服务器繁忙，请重试");
+                },
+                error: function () {
+                    alert("服务器繁忙，请重试");
+                },
+                complete:function () {
+                    $('#myModaling').modal('hide');
+                    $('#myModal').modal('hide');
+                },
+            });
+        });
+
+    });
+</script>
+
+{% endblock %}

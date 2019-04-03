@@ -1,0 +1,116 @@
+{% extends "../common/base.html" %} {% block main %}
+<script src=" https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+    // 初始化代码:
+    $(function () {
+
+        var vm = new Vue({
+            el: '#vm',
+            data: {
+                mobile:"18758896369",
+                url: "https://url.cn/5CryuBc",
+                nickname: "测试",
+                from:"微信fb2111",
+                res: "",
+                method:"get",
+            },
+            methods: {
+                register: function () {
+                    let that = this;
+                    $('#myModaling').modal('show');
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: `/eleme/${that.method}` ,//url
+                        data: $('#vm').serialize(),
+                        success: function (res) {
+                            that.res = res.message;
+                            alert("请求结果：\n"+that.res);
+                        },
+                        error : function(res) {
+                            that.res = res.status;
+                            alert("请求结果：\n"+that.res);
+                        },
+                        complete: function(res) {
+                            $('#myModaling').modal('hide');
+                        },
+                    });
+
+                }
+            }
+        });
+        window.vm = vm;
+    });
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>领取红包</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <form role="form" enctype="application/x-www-form-urlencoded" id="vm"  v-on:submit.prevent="register">
+                                <!--领取方法-->
+                                <div class="form-group">
+                                    <label for="method">领取方法</label>
+                                    <select class="form-control" id="method" v-model="method" name="method" required>
+                                        <option value="get">领红包</option>
+                                        <option value="chai">拆红包</option>
+                                        <option value="getSn">添加sn</option>
+                                        <option value="checkGet">检测cookieGet</option>
+                                        <option value="checkChai">检测cookieChai</option>
+                                    </select>
+                                </div>
+
+                                <!--手机号码-->
+                                <div class="form-group">
+                                    <label for="mobile">电话号码</label>
+                                    <input type="text" v-model="mobile" class="form-control" id="mobile" placeholder="请输入手机号码" name="mobile" required>
+                                </div>
+
+                                <!--链接-->
+                                <div class="form-group">
+                                    <label for="url">链接/订单号</label>
+                                    <input type="text" v-model="url" class="form-control" id="url" placeholder="请输入链接" name="url" required>
+                                </div>
+
+                                <!--名字-->
+                                <div class="form-group">
+                                    <label for="nickname">名字/检测数量</label>
+                                    <input type="text" v-model="nickname" class="form-control" id="nickname" placeholder="请输入名字" name="nickname" required>
+                                </div>
+
+                                <!--来自哪一个机器人-->
+                                <div class="form-group">
+                                    <label for="from">机器人</label>
+                                    <select class="form-control" id="from" v-model="from" name="from" required>
+                                        <option value="微信fb2111">微信fb2111</option>
+                                    </select>
+                                </div>
+
+                                <!--请求结果-->
+                                <div class="form-group">
+                                    <label for="res">请求结果</label>
+                                    <textarea  v-model="res" class="form-control" rows="15" id="res" name="res"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-default">提交</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

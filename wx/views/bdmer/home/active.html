@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="description" content="帮点儿忙">
+    <title>排行榜</title>
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="padding-top: 50px">
+<header class="navbar navbar-default navbar-fixed-top "  role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">帮点儿忙</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown" >
+                    <a href="/course/get" class="dropdown-toggle" data-toggle="dropdown">
+                        新手教程 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/course/get">领取最大教程</a></li>
+                        <li><a href="/course/chai">拆红包教程</a></li>
+                        <li><a href="/course/QQXML">QQ红包卡片教程</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" >
+                    <a href="/bdmer/recharge/" class="dropdown-toggle" data-toggle="dropdown">
+                        充值 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/bdmer/recharge/">充值</a></li>
+                        <li><a href="/bdmer/mine">次数查询</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" >
+                    <a href="/about/kefu" class="dropdown-toggle" data-toggle="dropdown">
+                        关于我们 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/about/kefu">联系客服</a></li>
+                        <li><a href="/about/cooperation">商业合作</a></li>
+                        <li><a href="/about/appreciate">赞赏我们</a></li>
+                        <li><a href="/about/statement">特别声明</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</header>
+
+<div id="important" style="margin:20px 0 20px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h3>邀请活动活动倒计时</h3>
+                <p>本次活动有效邀请时间：2019/12/14-2019/12/22</p>
+                <a class="btn btn-warning" id="t_d">00天</a>
+                <a class="btn btn-warning" id="t_h">00时</a>
+                <a class="btn btn-warning" id="t_m">00分</a>
+                <a class="btn btn-warning" id="t_s">00秒</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <table class="table" id="activeInfo">
+        <caption class="text-center" style="font-size: 18px">邀请排行榜</caption>
+        <thead>
+            <tr>
+                <th><span class="label label-default">uid</span></th>
+                <th><span class="label label-success">邀请成功次数</span></th>
+                <th><span class="label label-danger">邀请失败次数</span></th>
+                <th><span class="label label-primary">邀请排名</span></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="container text-center">
+    <div pagination="pagination_new" pagenumber="1">
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>奖励</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <p>
+                                <span class="btn  btn-danger btn-sm">第1名</span>
+                                <span>1000点数</span>
+                            </p>
+                            <p>
+                                <span class="btn  btn-success btn-sm">第2名</span>
+                                <span>800点数</span>
+                            </p>
+                            <p>
+                                <span class="btn  btn-warning btn-sm">第3名</span>
+                                <span>600点数</span>
+                            </p>
+                            <p>
+                                <span class="btn btn-sm">第4名</span>
+                                <span>500点数</span>
+                            </p>
+                            <p>
+                                <span class="btn btn-sm">第5名</span>
+                                <span>300点数</span>
+                            </p>
+                            <p>
+                                <span class="btn btn-sm">第6名</span>
+                                <span>100点数</span>
+                            </p>
+                            <p>
+                                <span class="btn btn-sm">前50名内</span>
+                                <span>50点数</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(function(){
+        //需要显示的数据
+        var activeInfo;
+
+        //当前页数
+        var pagenumber;
+        //总页数
+        var totalnumber;
+        //分页栏显示的页数
+        var paginationmax = 5;
+
+        //获取数据
+        $.ajax({
+            url: "/bdmer/home/active",
+            method: "POST",
+            data:{getCode:'chart'},
+            success: function (res) {
+                activeInfo = res;
+                totalnumber =  Math.ceil(res.data.length/10);
+                if(totalnumber<=5){
+                    paginationmax = totalnumber;
+                }
+                paginationInit();
+                processData();
+            },
+            error: function (err) {
+                alert(err.message || "服务器繁忙，请重试");
+                totalnumber = 0;
+                activeInfo = {};
+                activeInfo.data = [];
+                paginationInit();
+                processData();
+            }
+        });
+
+        //倒计时
+        function getRTime(){
+            var EndTime= new Date('2018/12/22 00:00:00'); //截止时间
+            var NowTime = new Date();
+            var t =EndTime.getTime() - NowTime.getTime();
+            /*var d=Math.floor(t/1000/60/60/24);
+            t-=d*(1000*60*60*24);
+            var h=Math.floor(t/1000/60/60);
+            t-=h*60*60*1000;
+            var m=Math.floor(t/1000/60);
+            t-=m*60*1000;
+            var s=Math.floor(t/1000);*/
+
+            var d=Math.floor(t/1000/60/60/24);
+            var h=Math.floor(t/1000/60/60%24);
+            var m=Math.floor(t/1000/60%60);
+            var s=Math.floor(t/1000%60);
+
+            document.getElementById("t_d").innerHTML = d + "天";
+            document.getElementById("t_h").innerHTML = h + "时";
+            document.getElementById("t_m").innerHTML = m + "分";
+            document.getElementById("t_s").innerHTML = s + "秒";
+        }
+        setInterval(getRTime,1000);
+
+        function initPagination(element){
+            pagenumber = Number(element.attr('pagenumber'));
+            if(totalnumber >= 1 && pagenumber <= totalnumber && paginationmax <= totalnumber){
+                var content =
+                    "<ul class='pagination'>" +
+                    "<li value='pre'>" +
+                    "<a href='javascript:void(0);'>«</a>" +
+                    "</li>";
+                for (var i = 0; i < totalnumber; i++) {
+                    content +=
+                        "<li value='"+ (i + 1) +"'>" +
+                        "<a href='javascript:void(0);'>" + (i + 1) +
+                        "</a>" +
+                        "</li>"
+                }
+                content +=
+                    "<li value='next'>" +
+                    "<a href='javascript:void(0);'>»</a>" +
+                    "</li>" +
+                    "</ul>";
+                element.append(content);
+                // 为设置为当前页的页签添加样式
+                element.children('ul').children('li[value = '+ pagenumber +']').addClass('active');
+                element.children('ul').children('li').click(clickChange);
+                element.children('ul').children('li').click(processData);
+                //显示那几个页签 传入任意li元素即可
+                pageShow(element.children('ul').children('li[value = '+ pagenumber +']'))
+            }else{
+                console.log('分页自定义属性不合理')
+            }
+        };
+        //凡是带有pagination = pagination_new属性的元素，都会生成分页，这样设计方便一个页面中有多个不同的分页
+        function paginationInit(){
+            $('[pagination = pagination_new]').each(function(){
+                initPagination($(this))
+            })
+        };
+        //点击页签时候样式的变化
+        function clickChange(ev){
+            ev = event || window.event;
+            pageShow($(ev.target).parent());
+            $(ev.target).parent().parent().children('li').each(function(index,item){
+                if($(item).hasClass('active')){
+                    $(item).removeClass('active');
+                }
+            });
+            //点击页码页签
+            if($(ev.target).parent().attr('value') != 'pre' && $(ev.target).parent().attr('value') != 'next'){
+                pagenumber = Number($(ev.target).parent().attr('value'))
+                $(ev.target).parent().addClass('active');
+                $(ev.target).parent().parent().children('li[value = pre]').removeClass('disabled');
+                $(ev.target).parent().parent().children('li[value = next]').removeClass('disabled');
+            //点击上一页页签
+            }else if($(ev.target).parent().attr('value') == 'pre'){
+                pagenumber -= 1;
+                if(pagenumber <= 1){
+                    pagenumber = 1;
+                    $(ev.target).parent().parent().children('li[value = 1]').addClass('active');
+                    $(ev.target).parent().parent().children('li[value = pre]').addClass('disabled');
+                }else{
+                    $(ev.target).parent().parent().children('li[value = '+ pagenumber.toString() +']').addClass('active');
+                    $(ev.target).parent().parent().children('li[value = pre]').removeClass('disabled');
+                    $(ev.target).parent().parent().children('li[value = next]').removeClass('disabled');
+                }
+            //点击下一页页签
+            }else if($(ev.target).parent().attr('value') == 'next'){
+                pagenumber += 1;
+                if(pagenumber >= totalnumber){
+                    pagenumber = totalnumber;
+                    $(ev.target).parent().parent().children('li[value = '+ totalnumber +']').addClass('active');
+                    $(ev.target).parent().parent().children('li[value = next]').addClass('disabled');
+                }else{
+                    $(ev.target).parent().parent().children('li[value = '+ pagenumber.toString() +']').addClass('active');
+                    $(ev.target).parent().parent().children('li[value = next]').removeClass('disabled');
+                    $(ev.target).parent().parent().children('li[value = pre]').removeClass('disabled');
+                }
+            }
+        }
+        //展示哪些页码 要用一个实际的分页找规律
+        function pageShow(element){
+            element.parent().children('li').each(function(index,item){
+                if(Number($(item).attr('value')) >= 1 + Number(paginationmax) && Number($(item).attr('value')) <= Number(totalnumber)){
+                    $(item).css('display','none')
+                }else{
+                    $(item).css('display','inline-block')
+                }
+            });
+
+           /* if(Number(pagenumber) >= 1 && Number(pagenumber) <= parseInt(.5 * Number(paginationmax))){
+                element.parent().children('li').each(function(index,item){
+                    if(Number($(item).attr('value')) >= 1 + Number(paginationmax) && Number($(item).attr('value')) <= Number(totalnumber)){
+                        $(item).css('display','none')
+                    }else{
+                        $(item).css('display','inline-block')
+                    }
+                });
+            }else if(Number(pagenumber) > parseInt(.5 * Number(paginationmax)) && Number(pagenumber) <= Number(totalnumber) - parseInt(.5 * Number(paginationmax))){
+                element.parent().children('li').each(function(index,item){
+                    if((Number($(item).attr('value')) >= 1 && Number($(item).attr('value')) <= Number(pagenumber) - parseInt(.5 * Number(paginationmax))) || (Number($(item).attr('value')) > Number(pagenumber) + parseInt(.5 * Number(paginationmax)) && Number($(item).attr('value')) <= Number(totalnumber))){
+                        $(item).css('display','none')
+                    }else{
+                        $(item).css('display','inline-block')
+                    }
+                });
+            }else if(Number(pagenumber) > Number(totalnumber) - parseInt(.5 * Number(paginationmax))){
+                element.parent().children('li').each(function(index,item){
+                    if(Number($(item).attr('value')) >= 1 && Number($(item).attr('value')) <= Number(totalnumber) - Number(paginationmax)){
+                        $(item).css('display','none')
+                    }else{
+                        $(item).css('display','inline-block')
+                    }
+                });
+            }*/
+        }
+        //页面切换时候的处理函数。比如发ajax根据不同页码获取不同数据展示数据等，用户自行配置。
+        function processData(){
+            console.log('当前页码',pagenumber);
+            var table = $('#activeInfo').children('tbody');
+            var tr = "";
+
+            table.empty();
+            //用户在这里写页码切换时候的逻辑
+            if(activeInfo.data.length !== 0){
+                for(var i=(pagenumber-1)*10; (i<((pagenumber-1)*10+10) && i< (activeInfo.data.length)); i++){
+                    tr = '<tr>' +
+                         '<td align="center">'+activeInfo.data[i].uid+'</td>' +
+                         '<td align="center">'+activeInfo.data[i].tempInvitationSuccess+'</td>' +
+                         '<td align="center">'+activeInfo.data[i].tempInvitationFail+'</td>' +
+                         '<td align="center"><span class="btn btn-warning btn-xs">'+(i+1)+'</span></td>' +
+                         '</tr>';
+                    table.append(tr);
+                }
+            }else{
+                tr = '<div class="text-center">还没有人邀请，快点来邀请赢大奖！</div>';
+                table.append(tr);
+            }
+
+        }
+    })
+</script>
+
+</body>
+
+</html>

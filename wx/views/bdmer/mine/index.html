@@ -1,0 +1,63 @@
+{% extends "../common/base.html" %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>绑定手机号</strong>
+                    </h3>
+                </div>
+                <div class="panel-body" style="font-size:16px;">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <p>手机号码：{{userInfo.phone}}</p>
+                            <p>
+                                绑定状态：{{userInfo.isBind}}
+                                {% if userInfo.canBind == 1 %}
+                                    <a class="btn btn-info btn-sm" href="https://bdmer.cn/bdmer/bind">去绑定</a>
+                                {% endif %}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>公告</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" >
+                            <div class="alert alert-danger">
+                                <h4>紧急通知：</h4>
+                                <p>1.最近红包变得很小（只有4元），请大家在发送给‘帮点儿忙’后，请等待半小时后再点击领取，基本就是5元红包。</p>
+                                <p>2.免费拆红包，获得更多通用红包。PS：向公众号回复“拆”，即可获得拆红包链接哦!</p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item" >
+                            <div class="alert alert-danger">
+                                <h4>点数规则</h4>
+                                <p>领取红包：消耗5点/次</p>
+                                <p>一键最佳：消耗10点/次</p>
+                                <p>拆红包：消耗5点/次</p>
+                                <p>绑定手机号：增加5点/次</p>
+                                <p>邀请好友：增加5点/人</p>
+                                <p>邀请好友(取关)：减少5点/人</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

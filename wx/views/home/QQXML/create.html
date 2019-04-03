@@ -1,0 +1,97 @@
+{% extends "../common/base.html" %} {% block main %}
+<script src=" https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+    Vue.http.options.emulateJSON = true;
+    // 初始化代码:
+    $(function () {
+
+        var vm = new Vue({
+            el: '#vm',
+            data: {
+                typeXML:"0", //默认是大红包
+                url: '',
+                resXML: ''
+            },
+            methods: {
+                register: function () {
+                    let that = this;
+
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: "/QQXML/create" ,//url
+                        data: $('#vm').serialize(),
+                        success: function (res) {
+                            if(res.myCode === 200){
+                                that.resXML = res.outUrl;
+                                alert("请求结果：\n"+that.resXML);
+                            }else{
+                                that.resXML = res.myCode;
+                                alert("请求结果：\n"+that.resXML);
+                            }
+                        },
+                        error : function(res) {
+                            that.resXML = res.status;
+                            alert("请求结果：\n"+that.resXML);
+                        }
+                    });
+
+                }
+            }
+        });
+        window.vm = vm;
+    });
+</script>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>QQXML卡片制作</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <form role="form" enctype="application/x-www-form-urlencoded" id="vm"  v-on:submit.prevent="register">
+                                <!--选择类型-->
+                                <div class="form-group">
+                                    <label for="typeXML">选择类型</label>
+                                    <select class="form-control" id="typeXML" v-model="typeXML" name="typeXML" required>
+                                        <option value="0">拼手气红包</option>
+                                        <option value="1">新拼手气红包</option>
+                                        <option value="2">群红包</option>
+                                        <option value="3">大红包</option>
+                                        <option value="9">淘宝双11</option>
+                                    </select>
+                                </div>
+
+                                <!--链接-->
+                                <div class="form-group">
+                                    <label for="url">链接</label>
+                                    <input type="text" v-model="url" class="form-control" id="url" placeholder="请输入链接" name="url" required>
+                                </div>
+
+                                <!--生成XML卡片-->
+                                <div class="form-group">
+                                    <label for="resXML">生成的XML卡片</label>
+                                    <textarea class="form-control" rows="15" id="resXML" v-model="resXML" name="resXML"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-default">提交</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body style="background: #f9f9f9">
+
+    <!--头-->
+    <div id="important" style="color:#FFFFFF; background-color:#455A64; margin-bottom: 20px;">
+        <div class="container" style="padding-top: 10px;">
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-md-12 text-center">
+                    <img src="{{userInfo.headimgurl}}" class="img-circle" style="width: 70px;height: 70px;" >
+                </div>
+                <div class="col-md-12" style="padding-top: 10px; font-size: 17px">
+                    <div class="text-center">{{userInfo.nickname}}</div>
+                    <div class="text-center">uid:{{userInfo.uid}}</div>
+                </div>
+            </div>
+            <div class="row" style="color:#3c3c3c; background-color:#FFFFFF;">
+                <div class="col-xs-4 text-center"><h4>等级</h4><p>{{userInfo.grade}}</p></div>
+                <div class="col-xs-4 text-center"><h4>点数</h4><p>{{userInfo.point}}</p></div>
+                <div class="col-xs-4 text-center"><h4>邀请数</h4><p>{{userInfo.invitationCount}}</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!--body-->
+    {% block content %} {% endblock %}
+
+   <!-- <footer style="background-color:#ddd; padding: 20px 0;">
+        <div class="text-center">
+            Copyright © 2018-2020
+            <strong><a href="http://bdmer.cn">帮点儿忙</a></strong>&nbsp;
+            <strong><a href="http://bdmer.cn">bdmer.cn</a></strong> All Rights Reserved.
+            <strong><a href="http://www.miitbeian.gov.cn/" target="_blank"> 备案号：浙ICP备18021614号-2</a></strong>
+        </div>
+    </footer>-->
+
+    <script type='text/javascript' src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script type='text/javascript' src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script type='text/javascript' src="https://map.qq.com/api/js?v=2.exp&key=LGDBZ-AQIW5-EVIIZ-QNN63-SZFT5-GAF5V" charset="utf-8"></script>
+
+
+    <script>
+        $(function () {
+            // 获取jsJDK配置
+            $.get(`/wxWeb/jsJDKConfig?url=${document.URL}`,function(data,status){
+                wx.config({
+                    debug: data.debug,
+                    appId: data.appid,
+                    timestamp:data.timestamp,
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: data.jsApiList
+                });
+            });
+
+            wx.ready(function(){
+                wx.hideOptionMenu();
+            });
+
+            wx.error(function(res){
+                alert(JSON.stringify(res));
+                $.get(`/wxWeb/jsJDKConfig?url=${document.URL}`,function(data,status){
+                    wx.config({
+                        debug: data.debug,
+                        appId: data.appid,
+                        timestamp:data.timestamp ,
+                        nonceStr: data.nonceStr,
+                        signature: data.signature,
+                        jsApiList: data.jsApiList
+                    });
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>

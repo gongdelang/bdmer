@@ -1,0 +1,33 @@
+{% extends "../common/base.html" %} {% block main %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>机器人登陆</strong>
+                    </h3>
+                </div>
+                <div class="panel-body" style="font-size:16px;">
+                    <ul class="list-group">
+                        {% for item in items %}
+                        <li class="list-group-item">
+                            <p class='text-center'>{{item}}请使用微信扫码登陆</p>
+                            <img   src="https://xiaping.xin/nginx/image/wxbot/{{item}}.png" class="img-responsive center-block" />
+                        </li>
+                        {% else %}
+                        <li class="list-group-item">
+                            <p class='text-center'>机器人服务未开启</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>{{title}}</title>
+    <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body style="padding-top: 50px">
+    <header class="navbar navbar-default navbar-fixed-top "  role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">帮点儿忙</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown" >
+                    <a href="/course/get" class="dropdown-toggle" data-toggle="dropdown">
+                        新手教程 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/course/get">领取最大教程</a></li>
+                        <li><a href="/course/chai">拆红包教程</a></li>
+                        <li><a href="/course/QQXML">QQ红包卡片教程</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" >
+                    <a href="/bdmer/recharge/" class="dropdown-toggle" data-toggle="dropdown">
+                        充值 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/bdmer/recharge/">充值</a></li>
+                        <li><a href="/bdmer/mine">次数查询</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" >
+                    <a href="/about/kefu" class="dropdown-toggle" data-toggle="dropdown">
+                        关于我们 <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/about/kefu">联系客服</a></li>
+                        <li><a href="/about/cooperation">商业合作</a></li>
+                        <li><a href="/about/appreciate">赞赏我们</a></li>
+                        <li><a href="/about/statement">特别声明</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</header>
+
+    <div id="important" style="color:#000000; background-color:#FFFFFF; margin:20px 0 20px 0;">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h1 style="color:#000000; font-size:20px">绑定手机号，即可获得5点数。</h1>
+                    <p style="font-size:14px;">每次手机号码失效重新绑定后，都将获得5点数。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 50px;">
+        <div class="row">
+            {% if userInfo.canBind == 1 %}
+            <div class="col-xs-10" >
+                <form  id="formPhone" role="form" style="margin-left: 60px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="phone" placeholder="请输入手机号码" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="bindPhone" class="btn btn-success">获取验证码</button>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="code" placeholder="请输入验证码" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="button" id="bindCode" class="btn btn-warning">绑定</button>
+                    </div>
+                </form>
+            </div>
+            {% elif userInfo.canBind == 0 %}
+            <div class="col-xs-12" >
+                <div class="panel panel-default "  class="col-xs-12 ">
+                    <div class="panel-body" style="font-size:16px;">
+                        <p>手机号码:{{userInfo.phone}}</p>
+                        <p>绑定状态:{{userInfo.isBind}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">请填写图形验证码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-bottom: 50px;">
+                        <div class="row">
+                            <div class="col-xs-10" >
+                                <form id="formCode"  role="form" style="margin-left: 60px;">
+                                    <div class="form-group">
+                                        <img src="" id="codeSrc">
+                                        <button type="button" class="btn btn-warning" id="getPictrueCode" >重新获取</button>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="pictrueCode" placeholder="请输入图形验证码" required>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="bindPictrueCode" >提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+    <div class="modal fade" id="myModaling" tabindex="-1" role="dialog" aria-labelledby="myModalLabeling" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabeling">加载中，请稍等...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="margin-bottom: 50px;">
+                        <div class="row">
+                            <div class="col-xs-12 text-center" >
+                                <img alt="" src="data:image/gif;base64,R0lGODlhGQAZAJECAK7PTQBjpv///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5OTYyNTQ4Ni02ZGVkLTI2NDUtODEwMy1kN2M4ODE4OWMxMTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUNGNUFGRUFGREFCMTFFM0FCNzVDRjQ1QzI4QjFBNjgiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUNGNUFGRTlGREFCMTFFM0FCNzVDRjQ1QzI4QjFBNjgiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk5NjI1NDg2LTZkZWQtMjY0NS04MTAzLWQ3Yzg4MTg5YzExNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OTYyNTQ4Ni02ZGVkLTI2NDUtODEwMy1kN2M4ODE4OWMxMTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQFCgACACwAAAAAGQAZAAACTpSPqcu9AKMUodqLpAb0+rxFnWeBIUdixwmNqRm6JLzJ38raqsGiaUXT6EqO4uIHRAYQyiHw0GxCkc7l9FdlUqWGKPX64mbFXqzxjDYWAAAh+QQFCgACACwCAAIAFQAKAAACHYyPAsuNH1SbME1ajbwra854Edh5GyeeV0oCLFkAACH5BAUKAAIALA0AAgAKABUAAAIUjI+py+0PYxO0WoCz3rz7D4bi+BUAIfkEBQoAAgAsAgANABUACgAAAh2EjxLLjQ9UmzBNWo28K2vOeBHYeRsnnldKBixZAAA7" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+        let timer;
+        function cleartime($obj) {
+            $obj.attr("disabled", false);
+            $obj.css("background", "").css("cursor", "");
+            $obj.text("获取验证码");
+            clearTimeout(timer);
+            return;
+        }
+
+
+        function settime($obj, time) {
+            if (time == 0) {
+                $obj.attr("disabled", false);
+                $obj.css("background", "").css("cursor", "");
+                $obj.text("获取验证码");
+                return;
+            } else {
+                $obj.attr("disabled", true);
+                $obj.css("background", "#ccc").css("cursor", "not-allowed");
+                $obj.text("重新发送(" + time + ")");
+                time--;
+            }
+            timer  = setTimeout(function () { settime($obj, time) }, 1000)
+        }
+
+
+        $(function () {
+            // 获取jsJDK配置
+            $.get(`/wxWeb/jsJDKConfig?url=${document.URL}`,function(data,status){
+                wx.config({
+                    debug: data.debug,
+                    appId: data.appid,
+                    timestamp:data.timestamp,
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: data.jsApiList
+                });
+            });
+
+            wx.ready(function(){
+                wx.hideOptionMenu();
+
+            });
+
+            wx.error(function(res){
+                alert(JSON.stringify(res));
+                $.get(`/wxWeb/jsJDKConfig?url=${document.URL}`,function(data,status){
+                    wx.config({
+                        debug: data.debug,
+                        appId: data.appid,
+                        timestamp:data.timestamp ,
+                        nonceStr: data.nonceStr,
+                        signature: data.signature,
+                        jsApiList: data.jsApiList
+                    });
+                });
+            });
+
+            $("#bindPhone").on("click", function () {
+                if(!(/^[1][3,4,5,7,8,9][0-9]{9}$/.test($("input[ name='phone' ]").val()))){
+                    alert("请输入正确的手机号码");
+                    $("input[ name='phone' ]").val('');
+                    return;
+                }
+                $('#myModaling').modal('show');
+                $.ajax({
+                    url: "/bdmer/bindPhone",
+                    method: "POST",
+                    data:$('#formPhone').serialize(),
+                    success: function (res) {
+                        cleartime($('#bindPhone'),timer);
+                        if(res.myCode === 0){
+                            alert(res.message || "服务器繁忙，请重试");
+                            settime($('#bindPhone'), 60);
+                            return;
+                        } else if(res.myCode == 1){
+                            alert(res.message || "服务器繁忙，请重试");
+                            if(res.message && /未失效/.test(res.message)) {
+                                wx.closeWindow();
+                            }
+                            return;
+                        }else if(res.myCode == 2){
+                            $("input[ name='pictrueCode' ]").val('');
+                            $('#myModal').modal('show');
+                            $("#codeSrc").attr('src',res.message);
+                            return;
+                        }else{
+                            alert(res.message || "服务器繁忙，请重试");
+                        }
+                        return;
+                    },
+                    error: function () {
+                        alert("服务器繁忙，请重试");
+                    },
+                    complete:function () {
+                        $('#myModaling').modal('hide');
+                    }
+                });
+            });
+
+            $("#bindPictrueCode").on("click", function () {
+                if(!(/^[a-zA-Z0-9]{4}$/.test($("input[ name='pictrueCode' ]").val()))){
+                    alert("图形验证码输入错误");
+                    $("input[ name='pictrueCode' ]").val('');
+                    return;
+                }
+                $('#myModaling').modal('show');
+                $.ajax({
+                    url: "/bdmer/bindPictrueCode",
+                    method: "POST",
+                    data:$('#formCode').serialize(),
+                    success: function (res) {
+                        cleartime($('#bindPhone'),timer);
+                        if(res.myCode === 0){
+                            alert(res.message || "服务器繁忙，请重试");
+                            settime($('#bindPhone'), 60);
+                            $('#myModal').modal('hide');
+                            return;
+                        }else{
+                            alert(res.message || "服务器繁忙，请重试");
+                        }
+                        return;
+                    },
+                    error: function () {
+                        alert("服务器繁忙，请重试");
+                    },
+                    complete:function () {
+                        $('#myModaling').modal('hide');
+                    },
+                });
+            });
+
+            $("#getPictrueCode").on("click", function () {
+                if(!(/^[1][3,4,5,7,8,9][0-9]{9}$/.test($("input[ name='phone' ]").val()))){
+                    alert("请输入正确的手机号码");
+                    $("input[ name='phone' ]").val('');
+                    return;
+                }
+                $('#myModaling').modal('show');
+                $.ajax({
+                    url: "/bdmer/bindPhone",
+                    method: "POST",
+                    data:$('#formPhone').serialize(),
+                    success: function (res) {
+                        cleartime($('#bindPhone'),timer);
+                        if(res.myCode === 0){
+                            alert(res.message || "服务器繁忙，请重试");
+                            settime($('#bindPhone'), 60);
+                            $('#myModal').modal('hide');
+                            return;
+                        } else if(res.myCode == 1){
+                            alert(res.message || "服务器繁忙，请重试");
+                            if(res.message && /未失效/.test(res.message)) {
+                                wx.closeWindow();
+                            }
+                            return;
+                        }else if(res.myCode == 2){
+                            $("input[ name='pictrueCode' ]").val('');
+                            $("#codeSrc").attr('src',res.message);
+                            return;
+                        }else{
+                            alert(res.message || "服务器繁忙，请重试");
+                        }
+                        return;
+                    },
+                    error: function () {
+                        alert("服务器繁忙，请重试");
+                    },
+                    complete:function () {
+                        $('#myModaling').modal('hide');
+                    }
+                });
+            });
+
+            $("#bindCode").on("click", function () {
+                if(!(/^\d{6}$/.test($("input[ name='code' ]").val()))){
+                    alert("验证码输入错误");
+                    $("input[ name='code' ]").val('');
+                    return;
+                }
+                $('#myModaling').modal('show');
+                $.ajax({
+                    url: "/bdmer/bindCode",
+                    method: "POST",
+                    data:$('#formPhone').serialize(),
+                    success: function (res) {
+                        alert(res.message || "服务器繁忙，请重试");
+                        if(res.myCode == 0){
+                            wx.closeWindow();
+                        }else{
+                            $("input[ name='code' ]").val('');
+                        }
+                    },
+                    error: function () {
+                        alert("服务器繁忙，请重试");
+                    },
+                    complete:function () {
+                        cleartime($('#bindPhone'),timer);
+                        $("input[ name='code' ]").val('');
+                        $('#myModaling').modal('hide');
+                    },
+                });
+            });
+
+        });
+    </script>
+
+
+</body>
+</html>

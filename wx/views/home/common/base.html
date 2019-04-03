@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="description" content="帮点儿忙">
+    <title>{{ title }}</title>
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .footerCourse{
+
+            height: 100px;
+
+            width: 100%;
+
+            position: fixed;
+
+            bottom: 0;
+
+        }
+
+    </style>
+</head>
+
+<body style="padding-top: 50px">
+    <header class="navbar navbar-default navbar-fixed-top "  role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">帮点儿忙</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown" >
+                        <a href="/course/get" class="dropdown-toggle" data-toggle="dropdown">
+                            新手教程 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/course/get">领取最大教程</a></li>
+                            <li><a href="/course/chai">拆红包教程</a></li>
+                            <li><a href="/course/QQXML">QQ红包卡片教程</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown" >
+                        <a href="/bdmer/recharge/" class="dropdown-toggle" data-toggle="dropdown">
+                            充值 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/bdmer/recharge/">充值</a></li>
+                            <li><a href="/bdmer/mine">次数查询</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown" >
+                        <a href="/about/kefu" class="dropdown-toggle" data-toggle="dropdown">
+                            关于我们 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about/kefu">联系客服</a></li>
+                            <li><a href="/about/cooperation">商业合作</a></li>
+                            <li><a href="/about/appreciate">赞赏我们</a></li>
+                            <li><a href="/about/statement">特别声明</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+
+    <div id="important" style="color:#000000; background-color:#FFFFFF; margin:20px 0 20px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h1 style="color:#000000; font-size:20px">绑定手机号，即可获得5点数。</h1>
+                    <p style="font-size:14px;">每次手机号码失效重新绑定后，都将获得5点数。</p>
+                    <a class="btn btn-success" href="https://bdmer.cn/bdmer/bind">去绑定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <header class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <div class="container-fluid">
+                <ul class="nav nav-pills" style="margin-left: 20px" id="footerCourse">
+                    <li style="float:left"><a href="/course">新手教程</a></li>
+                    <li style="float:left"><a href="/course/get">领红包教程</a></li>
+                    <li style="float:left"><a href="/course/chai">拆红包教程</a></li>
+                </ul>
+            </div>
+        </header>
+    </div>
+
+    <!--<div id="important" style="color:#000000; background-color:#FFFFFF; margin:20px 0 20px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 style="color:#000000; font-size:40px">帮点儿忙</h1>
+                    <p style="font-size:18px;padding-bottom: 20px;">欢迎使用<strong>帮点儿忙</strong>，请记住我们的唯一官方网址：<a href="http://bdmer.cn">bdmer.cn</a></p>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <!--body-->
+    {% block main %} {% endblock %}
+
+    <!--<footer style="background-color:#ddd; padding: 20px 0;">
+        <div class="text-center">
+            Copyright © 2018-2020
+            <strong><a href="http://bdmer.cn">帮点儿忙</a></strong>&nbsp;
+            <strong><a href="http://bdmer.cn">bdmer.cn</a></strong> All Rights Reserved.
+            <strong><a href="http://www.miitbeian.gov.cn/" target="_blank"> 备案号：浙ICP备18021614号-2</a></strong>
+        </div>
+    </footer>-->
+
+    <!--模态框-->
+    <div class="modal fade" id="myModaling" tabindex="-1" role="dialog" aria-labelledby="myModalLabeling" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabeling">获取中，请稍等...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 text-center">
+                                <img alt="" src="data:image/gif;base64,R0lGODlhGQAZAJECAK7PTQBjpv///wAAACH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5OTYyNTQ4Ni02ZGVkLTI2NDUtODEwMy1kN2M4ODE4OWMxMTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUNGNUFGRUFGREFCMTFFM0FCNzVDRjQ1QzI4QjFBNjgiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUNGNUFGRTlGREFCMTFFM0FCNzVDRjQ1QzI4QjFBNjgiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk5NjI1NDg2LTZkZWQtMjY0NS04MTAzLWQ3Yzg4MTg5YzExNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OTYyNTQ4Ni02ZGVkLTI2NDUtODEwMy1kN2M4ODE4OWMxMTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQFCgACACwAAAAAGQAZAAACTpSPqcu9AKMUodqLpAb0+rxFnWeBIUdixwmNqRm6JLzJ38raqsGiaUXT6EqO4uIHRAYQyiHw0GxCkc7l9FdlUqWGKPX64mbFXqzxjDYWAAAh+QQFCgACACwCAAIAFQAKAAACHYyPAsuNH1SbME1ajbwra854Edh5GyeeV0oCLFkAACH5BAUKAAIALA0AAgAKABUAAAIUjI+py+0PYxO0WoCz3rz7D4bi+BUAIfkEBQoAAgAsAgANABUACgAAAh2EjxLLjQ9UmzBNWo28K2vOeBHYeRsnnldKBixZAAA7" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+</body>
+<script>
+
+    if(window.location.pathname === "/course"){
+        $("#footerCourse").children('li').eq(0).addClass('active');
+    }else if(window.location.pathname === "/course/get"){
+        $("#footerCourse").children('li').eq(1).addClass('active');
+    }else if(window.location.pathname === "/course/chai"){
+        $("#footerCourse").children('li').eq(2).addClass('active');
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "wx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "delanggong",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "axios-https-proxy-fix": "^0.17.1",
+    "bluebird": "^3.5.1",
+    "btoa": "^1.2.1",
+    "crypto": "^1.0.1",
+    "hex2dec": "^1.1.0",
+    "images": "^3.0.1",
+    "ip": "^1.1.5",
+    "jssha": "^1.5.0",
+    "koa": "^2.5.0",
+    "koa-body": "^4.0.4",
+    "koa-bodyparser": "^4.2.0",
+    "koa-multer": "^1.0.2",
+    "koa-nunjucks-2": "^3.0.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
+    "koa-xml-body": "^2.1.0",
+    "koa2-cors": "^2.0.6",
+    "log4js": "^2.5.3",
+    "md5": "^2.2.1",
+    "moment": "^2.22.2",
+    "mysql": "^2.15.0",
+    "node-mysql-promise": "^0.0.7",
+    "node-schedule": "^1.3.0",
+    "qr-image": "^3.2.0",
+    "querystring": "^0.2.0",
+    "randomstring": "^1.1.5",
+    "restler": "^3.4.0",
+    "sha1": "^1.1.1",
+    "uuid": "^3.3.2"
+  }
+}

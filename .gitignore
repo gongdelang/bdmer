@@ -1,0 +1,7 @@
+.*
+!.gitignore
+node_modules/
+logs/
+*.zip
+package-lock.json
+cookie.js

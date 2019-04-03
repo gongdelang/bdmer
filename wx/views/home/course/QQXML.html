@@ -1,0 +1,41 @@
+{% extends "../common/base.html" %} {% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <strong>{{course}}</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h4>1.添加好友:</h4>
+                            <p>QQ扫描下方二维码添加好友</p>
+                            <div class="row">
+                                <div class="col-md-2 text-center"></div>
+                                <div class="col-md-2 text-center">
+                                    <img  src="/image/erCode/QQGDL.png" class="img-responsive center-block" />
+                                </div>
+                                <div class="col-md-1 text-center"></div>
+                                <div class="col-md-2 text-center">
+                                    <img  src="/image/erCode/QQCFB.png" class="img-responsive center-block" />
+                                </div>
+                                <div class="col-md-1 text-center"></div>
+                                <div class="col-md-2 text-center">
+                                    <img  src="/image/erCode/QQTS.png" class="img-responsive center-block" />
+                                </div>
+                                <div class="col-md-2 text-center"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

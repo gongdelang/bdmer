@@ -1,0 +1,159 @@
+{% extends "../common/base.html" %} {% block main %}
+<script src=" https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script>
+    // 初始化代码:
+    $(function () {
+        var vm = new Vue({
+            el: '#vm',
+            data: {
+                method:"createMenu",
+                postData:`[
+         {
+             "name":"我的",
+             "sub_button":[
+             {
+                 "type":"view",
+                 "name":"个人中心",
+                 "url":"https://bdmer.cn/bdmer/mine"
+             },
+             {
+                 "type":"click",
+                 "name":"专属邀请码",
+                 "key":"invitation"
+             },
+             {
+                 "type":"view",
+                 "name":"充值点数",
+                 "url":"https://bdmer.cn/bdmer/recharge/"
+             }
+             ]
+         },
+         {
+             "name":"一键优惠",
+             "sub_button":[
+             {
+                 "type":"click",
+                 "name":"拆取红包",
+                 "key":"chaiUrl"
+             },
+             {
+                 "type":"view",
+                 "name":"点数获取",
+                 "url":"https://bdmer.cn/bdmer/bind"
+             },
+             {
+                 "type":"click",
+                 "name":"一键最大",
+                 "key":"getHongBao"
+             }
+             ]
+         },
+         {
+             "name":"帮助",
+             "sub_button":[
+             {
+                 "type":"view",
+                 "name":"通知公告",
+                 "url":"https://bdmer.cn/about/notice"
+             },
+             {
+                 "type":"view",
+                 "name":"新手教程",
+                 "url":"https://bdmer.cn/course"
+             },
+             {
+                 "type": "view",
+                 "name": "联系客服",
+                 "url": "https://bdmer.cn/about/kefu"
+             }
+             ]
+         }
+         ]`,
+                res: ""
+            },
+            methods: {
+                register: function () {
+                    let that = this;
+                    $('#myModaling').modal('show');
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: `/wxWeb/opreation` ,//url
+                        data: $('#vm').serialize(),
+                        success: function (res) {
+                            that.res = JSON.stringify(res);
+                            alert("请求结果：\n"+that.res);
+                        },
+                        error : function(res) {
+                            that.res = res.status;
+                            alert("请求结果：\n"+that.res);
+                        },
+                        complete: function() {
+                            $('#myModaling').modal('hide');
+                        },
+                    });
+
+                }
+            }
+        });
+        window.vm = vm;
+    });
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <strong>微信后台操作</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <form role="form" enctype="application/x-www-form-urlencoded" id="vm"  v-on:submit.prevent="register">
+                                <!--领取方法-->
+                                <div class="form-group">
+                                    <label for="method">操作方法</label>
+                                    <select class="form-control" id="method" v-model="method" name="method" required>
+                                        <option value="updateAccessToken">更新access_token</option>
+                                        <option value="createMenu">创建菜单</option>
+                                        <option value="getMenu">获取菜单
+                                        <option value="closeOrder">关闭订单</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!--请求数据-->
+                                        <div class="form-group">
+                                            <label for="postData">请求数据</label>
+                                            <textarea  v-model="postData" class="form-control" rows="20" id="postData" name="postData"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!--请求结果-->
+                                        <div class="form-group">
+                                            <label for="res">操作结果</label>
+                                            <textarea  v-model="res" class="form-control" rows="20" id="res" name="res"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-default">提交</button>
+
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
